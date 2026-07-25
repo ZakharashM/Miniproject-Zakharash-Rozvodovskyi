@@ -22,3 +22,33 @@ n_trades = min(len(buys), len(sells))
 pnl = ((sells.iloc[:n_trades].values - buys.iloc[:n_trades].values)/ buys.iloc[:n_trades].values) * 1000
 print("Прибуток/збиток з кожної угоди ($):", pnl.round(2))
 print("Загальний фінансовий результат ($):", round(pnl.sum(), 2))
+plt.figure(figsize=(14, 7))
+plt.plot(
+    dani.index,
+    dani["Close"],
+    label="Ціна Close",
+    color="gray",
+    alpha=0.5,
+    linewidth=1.5,
+)
+plt.plot(
+    dani.index,
+    dani["MEAN20"],
+    label="MEAN20 (Швидка)",
+    color="blue",
+    linewidth=1.5,
+)
+plt.plot(
+    dani.index,
+    dani["MEAN50"],
+    label="MEAN50 (Повільна)",
+    color="orange",
+    linewidth=1.5,
+)
+plt.title("Торгова стратегія: Перетин MEAN20 та MEAN50 (AAPL)",fontsize=14,fontweight="bold",)
+plt.xlabel("Дата", fontsize=11)
+plt.ylabel("Ціна ($)", fontsize=11)
+plt.legend(loc="best")
+plt.grid(True, linestyle="--", alpha=0.5)
+plt.tight_layout()
+plt.show()
